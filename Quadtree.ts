@@ -1,33 +1,65 @@
 
+/**
+ * quadtree-js
+ * @version 1.2.2
+ * @license MIT
+ * @author Timo Hausmann
+ */
+
+/* https://github.com/timohausmann/quadtree-js.git v1.2.2 */
+
+/*
+Copyright © 2012-2020 Timo Hausmann
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/** 把大佬的东西改成Ts，添加注释，用于学习 */
 
 /**
  * 四叉树碰撞，原点在左上角
  */
 class Quadtree {
     /** 最大可容纳对象数 */
-    private max_objects: number
+    private max_objects: number;
     /** 最大深度 */
-    private max_levels: number
+    private max_levels: number;
     /** 当前节点深度 */
-    private level: number
+    private level: number;
     /** 当前区域的信息 */
     private bounds: Bound;
     /** 当前区域存放的对象 */
-    private objects: Bound[]
-    /**  当前节点的子节点 */
-    private nodes: Quadtree[]
+    private objects: Bound[];
+    /** 当前区域的子节点 */
+    private nodes: Quadtree[];
+
 
     public constructor(bounds: Bound, level: number = 0, max_objects: number = 10, max_levels: number = 4) {
 
-        this.max_objects = max_objects
-        this.max_levels = max_levels
+        this.max_objects = max_objects;
+        this.max_levels = max_levels;
 
-        this.level = level
+        this.level = level;
         this.bounds = bounds;
 
         this.objects = [];
         this.nodes = [];
-    };
+    }
+
 
     /**
      * Split the node into 4 subnodes
@@ -74,7 +106,6 @@ class Quadtree {
     };
 
 
-
     /**
      * Determine which node the object belongs to
      * 确定对象属于哪个节点
@@ -118,9 +149,7 @@ class Quadtree {
         }
 
         return indexes;
-    };
-
-
+    }
 
 
     /**
@@ -168,9 +197,7 @@ class Quadtree {
             //clean up this node
             this.objects = [];
         }
-    };
-
-
+    }
 
 
     /**
@@ -199,12 +226,12 @@ class Quadtree {
         });
 
         return returnObjects;
-    };
+    }
 
 
     /**
      * Clear the quadtree
-     * 清空的四叉树
+     * 清空四叉树
      */
     public clear() {
 
@@ -217,18 +244,19 @@ class Quadtree {
         }
 
         this.nodes = [];
-    };
-
-
+    }
 }
 
 
-
-
 class Bound {
-
-    public x: number;
-    public y: number;
-    public width: any;
-    public height: any;
+    constructor(x, y, width, height) {
+        this.x = x;
+        this.y = x;
+        this.width = width;
+        this.height = height;
+    }
+    public readonly x: number;
+    public readonly y: number;
+    public readonly width: any;
+    public readonly height: any;
 }
