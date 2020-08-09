@@ -73,7 +73,7 @@ class Quadtree {
             y = this.bounds.y;
 
         //top right node
-        this.nodes[0] = new Quadtree({
+        this.nodes[QuadtreeDir.NE] = new Quadtree({
             x: x + subWidth,
             y: y,
             width: subWidth,
@@ -81,7 +81,7 @@ class Quadtree {
         }, this.max_objects, this.max_levels, nextLevel);
 
         //top left node
-        this.nodes[1] = new Quadtree({
+        this.nodes[QuadtreeDir.NW] = new Quadtree({
             x: x,
             y: y,
             width: subWidth,
@@ -89,7 +89,7 @@ class Quadtree {
         }, this.max_objects, this.max_levels, nextLevel);
 
         //bottom left node
-        this.nodes[2] = new Quadtree({
+        this.nodes[QuadtreeDir.SW] = new Quadtree({
             x: x,
             y: y + subHeight,
             width: subWidth,
@@ -97,7 +97,7 @@ class Quadtree {
         }, this.max_objects, this.max_levels, nextLevel);
 
         //bottom right node
-        this.nodes[3] = new Quadtree({
+        this.nodes[QuadtreeDir.SE] = new Quadtree({
             x: x + subWidth,
             y: y + subHeight,
             width: subWidth,
@@ -130,22 +130,22 @@ class Quadtree {
 
         //top-right quad
         if (startIsNorth && endIsEast) {
-            indexes.push(0);
+            indexes.push(QuadtreeDir.NE);
         }
 
         //top-left quad
         if (startIsWest && startIsNorth) {
-            indexes.push(1);
+            indexes.push(QuadtreeDir.NW);
         }
 
         //bottom-left quad
         if (startIsWest && endIsSouth) {
-            indexes.push(2);
+            indexes.push(QuadtreeDir.SW);
         }
 
         //bottom-right quad
         if (endIsEast && endIsSouth) {
-            indexes.push(3);
+            indexes.push(QuadtreeDir.SE);
         }
 
         return indexes;
@@ -247,6 +247,17 @@ class Quadtree {
     }
 }
 
+
+enum QuadtreeDir {
+    /** top-right 右上 */
+    NE,
+    /** top-left 左上 */
+    NW,
+    /** bottom-left 左下 */
+    SW,
+    /** bottom-right 右下 */
+    SE
+}
 
 class Bound {
     constructor(x, y, width, height) {
